@@ -1,2 +1,1 @@
-# DeepLUQ
-Library for Deep Learning Uncertainty Quantification
+# DeepLUQ: Python Library for Deep Learning Uncertainty Quantification
