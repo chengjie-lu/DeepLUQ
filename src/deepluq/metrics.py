@@ -82,7 +82,6 @@ class UQMetrics:
         :param tag:
         :return: total variance
         """
-        import statistics
 
         self.total_var_bounding_box = 0
         trans = np.array(matrix).T
@@ -181,7 +180,7 @@ class UQMetrics:
                 # plt.show()
                 # plt.savefig('./f.jpg')
                 self.prediction_surface = sf_tmp
-            except:
+            except Exception:
                 self.prediction_surface = -1
 
         return self.prediction_surface
