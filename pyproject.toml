@@ -42,6 +42,31 @@ classifiers = [
   "Programming Language :: Python :: 3.7",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+]
+
+dependencies = [
+    "aiohttp",
+    "ImageHash",
+    "matplotlib",
+    "numpy",
+    "onnx",
+    "onnxruntime",
+    "opencv-python",
+    "pandas",
+    "pillow",
+    "psutil",
+    "pycocotools",
+    "pypylon",
+    "pypylon",
+    "requests",
+    "scikit-learn",
+    "scipy",
+    "torch",
+    "torchmetrics",
+    "torchvision",
+    "tqdm",
 ]
 
 [project.urls]
@@ -52,6 +77,11 @@ repository = "https://github.com/chengjie-lu/deepluq"
 #[project.entry-points]
 
 [project.optional-dependencies]
+dev = [
+    "pre-commit",
+    "tox",
+]
+
 test = [
     "coverage",
     "pytest",
