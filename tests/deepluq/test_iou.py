@@ -6,8 +6,8 @@
 # @Software: PyCharm
 
 import unittest
-from torchmetrics.detection import IntersectionOverUnion, DistanceIntersectionOverUnion, CompleteIntersectionOverUnion
 import torch
+from torchmetrics.detection import IntersectionOverUnion, DistanceIntersectionOverUnion, CompleteIntersectionOverUnion
 from torchmetrics.functional.detection import intersection_over_union
 
 
