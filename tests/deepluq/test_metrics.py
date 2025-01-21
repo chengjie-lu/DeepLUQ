@@ -6,7 +6,7 @@
 # @Software: PyCharm
 
 import pytest
-import src.deepluq
+import deepluq
 
 
 def test_library_import():
