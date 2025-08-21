@@ -7,13 +7,13 @@
 
 import numpy as np
 import pytest
-from src.deepluq.metrics import UQMetrics  # <-- adjust import if your class is in another file
+from src.deepluq.metrics_dl import DLMetrics  # <-- adjust import if your class is in another file
 
 
 @pytest.fixture
 def uq():
     """Fixture to provide a fresh UQMetrics instance for each test."""
-    return UQMetrics()
+    return DLMetrics()
 
 
 # -------------------------------
@@ -85,8 +85,8 @@ def test_calcu_prediction_surface(uq):
     surface = uq.calcu_prediction_surface(boxes)
     assert surface >= 0
 
+
 def test_calcu_prediction_surface_too_few_points(uq):
     boxes = [[0, 0, 1, 1]]  # not enough points for hull
     surface = uq.calcu_prediction_surface(boxes)
     assert surface == -1
-

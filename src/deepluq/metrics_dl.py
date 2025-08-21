@@ -11,9 +11,9 @@ import torch
 from scipy.spatial import ConvexHull
 
 
-class UQMetrics:
+class DLMetrics:
     """
-    A class to compute various Uncertainty Quantification (UQ) metrics,
+    A class to compute various Uncertainty Quantification (UQ) metrics for Deep Learning,
     including variation ratio, entropy, mutual information, total variance,
     and prediction surface using convex hulls.
     """
