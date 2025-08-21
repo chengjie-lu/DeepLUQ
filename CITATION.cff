@@ -6,6 +6,7 @@ authors:
   orcid: "https://orcid.org/0000-0002-5818-7547"
 - family-names: "Roehr"
   given-names: "Thomas"
+  orcid: "https://orcid.org/0000-0002-7715-705"
 title: "DeepLUQ: Python Library for Deep Learning Uncertainty Quantification"
 version: 0.1
 date-released: 2025-01-06
