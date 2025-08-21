@@ -12,123 +12,145 @@ from scipy.spatial import ConvexHull
 
 
 class UQMetrics:
-    def __init__(self):
-        self.variation_ratio = 0
-        self.shannon_entropy = 0
-        self.mutual_information = 0
-        self.total_var_center_point = 0
-        self.total_var_bounding_box = 0
-        self.prediction_surface = -1
-        self.hull = []
-        self.box = []
-        # pass
+    """
+    A class to compute various Uncertainty Quantification (UQ) metrics,
+    including variation ratio, entropy, mutual information, total variance,
+    and prediction surface using convex hulls.
+    """
 
+    def __init__(self):
+        # Initialize metrics with default values
+        self.variation_ratio = 0.0
+        self.shannon_entropy = 0.0
+        self.mutual_information = 0.0
+        self.total_var_center_point = 0.0
+        self.total_var_bounding_box = 0.0
+        self.prediction_surface = -1.0
+
+        # Store geometric results
+        self.hull = []  # List of convex hulls
+        self.box = []   # List of bounding boxes (if needed later)
+
+    # -------------------------------
+    # Classification uncertainty metrics
+    # -------------------------------
     def cal_vr(self, events):
         """
-        Variation Ratio Calculation
-        :return:
+        Compute the Variation Ratio (VR).
+        Measures the proportion of non-modal class predictions.
+
+        Parameters:
+            events (array-like): Model outputs or predictions.
+
+        Returns:
+            float: Variation ratio.
         """
         y = torch.argmax(torch.Tensor(events), dim=1).numpy()
-        unique, counts = np.unique(y, return_counts=True)
+        _, counts = np.unique(y, return_counts=True)
         self.variation_ratio = 1 - np.max(counts) / np.sum(counts)
         return self.variation_ratio
 
-    def calcu_entropy(self, events, ets=1e-15, base=2):
+    def calcu_entropy(self, events, eps=1e-15, base=2):
         """
-        Shannon Entropy Calculation
-        :param events:
-        :param ets:
-        :param base:
-        :return:
+        Compute Shannon entropy of probabilities.
+
+        Parameters:
+            events (array-like): Probability distribution.
+            eps (float): Small constant to avoid log(0).
+            base (int): Logarithm base.
+
+        Returns:
+            float: Shannon entropy (rounded to 5 decimals).
         """
         self.shannon_entropy = round(
-            -sum([p * (np.log(p + ets) / np.log(base)) for p in events]), 5
+            -np.sum([p * (np.log(p + eps) / np.log(base)) for p in events]), 5
         )
         return self.shannon_entropy
 
-    def calcu_mi(self, events, ets=1e-15, base=2):
-        def calcu(e):
-            t = 0
-            for s in e:
-                t += sum([p * (np.log(p + ets) / np.log(base)) for p in s])
-            return t / len(e)
-
-        self.mutual_information = self.calcu_entropy(
-            events=np.mean(np.transpose(events), axis=1)
-        ) + calcu(events)
-        return self.mutual_information
-
-    # @staticmethod
-    def calcu_tv(self, matrix, tag):
+    def calcu_mi(self, events, eps=1e-15, base=2):
         """
-        calculate total variance for a multi-dimensional matrix
-        :param matrix:
-        :param tag:
-        :return: total variance
-        """
-        trans = np.array(matrix).T
-        cov_matrix = np.cov(trans)
-        if tag == "bounding_box":
-            self.total_var_bounding_box = np.trace(cov_matrix)
-            return self.total_var_bounding_box
-        elif tag == "center_point":
-            self.total_var_center_point = np.trace(cov_matrix)
-            return self.total_var_center_point
+        Compute Mutual Information (MI) between predictions.
 
-    def calcu_tv_2(self, matrix, tag):
-        """
-        calculate total variance for a multi-dimensional matrix
-        :param matrix:
-        :param tag:
-        :return: total variance
-        """
-
-        self.total_var_bounding_box = 0
-        trans = np.array(matrix).T
-
-        if tag == "bounding_box":
-            for m in trans:
-                self.total_var_bounding_box += np.var(m)
-
-            # if self.total_var_bounding_box > 2000:
-            #     print(trans)
-            return self.total_var_bounding_box
-
-    def calcu_mutual_information(self, X, Y, Z):
-        """
-        Calculate mutual information between three discrete random variables X, Y, and Z.
-        http://www.scholarpedia.org/article/Mutual_information#:~:text=Mutual%20information%20is%20one%20of,variable%20given%20knowledge%20of%20another.
         Parameters:
-            X, Y, Z : array-like, shape (n_samples,)
-                Arrays containing discrete random variables.
+            events (array-like): Model probability outputs.
+            eps (float): Small constant to avoid log(0).
+            base (int): Logarithm base.
 
         Returns:
-            mutual_info : float
-                The mutual information between X, Y, and Z.
+            float: Mutual information.
         """
-        # Compute joint probability distribution
-        unique_X = np.unique(X)
-        unique_Y = np.unique(Y)
-        unique_Z = np.unique(Z)
 
+        def entropy_component(e):
+            return np.mean([
+                np.sum([p * (np.log(p + eps) / np.log(base)) for p in s])
+                for s in e
+            ])
+
+        avg_probs = np.mean(np.transpose(events), axis=1)
+        self.mutual_information = self.calcu_entropy(avg_probs) + entropy_component(events)
+        return self.mutual_information
+
+    # -------------------------------
+    # Total variance metrics
+    # -------------------------------
+    def calcu_tv(self, matrix, tag):
+        """
+        Compute total variance of a multi-dimensional matrix using covariance.
+
+        Parameters:
+            matrix (array-like): Input data matrix.
+            tag (str): Either 'bounding_box' or 'center_point'.
+
+        Returns:
+            float: Total variance.
+        """
+        cov_matrix = np.cov(np.array(matrix).T)
+        trace_val = np.trace(cov_matrix)
+
+        if tag == "bounding_box":
+            self.total_var_bounding_box = trace_val
+            return self.total_var_bounding_box
+        elif tag == "center_point":
+            self.total_var_center_point = trace_val
+            return self.total_var_center_point
+        else:
+            raise ValueError("tag must be either 'bounding_box' or 'center_point'")
+
+    # -------------------------------
+    # Mutual Information between variables
+    # -------------------------------
+    def calcu_mutual_information(self, X, Y, Z):
+        """
+        Compute mutual information between three discrete random variables X, Y, and Z.
+
+        Reference:
+            http://www.scholarpedia.org/article/Mutual_information
+
+        Parameters:
+            X, Y, Z (array-like): Discrete random variables of shape (n_samples,).
+
+        Returns:
+            float: Mutual information.
+        """
+        unique_X, unique_Y, unique_Z = np.unique(X), np.unique(Y), np.unique(Z)
+
+        # Joint probability distribution
         joint_probs = np.zeros((len(unique_X), len(unique_Y), len(unique_Z)))
         for i, x in enumerate(unique_X):
             for j, y in enumerate(unique_Y):
                 for k, z in enumerate(unique_Z):
-                    joint_probs[i, j, k] = np.sum(
-                        np.logical_and(np.logical_and(X == x, Y == y), Z == z)
-                    ) / float(len(X))
+                    joint_probs[i, j, k] = np.mean((X == x) & (Y == y) & (Z == z))
 
-        # Compute marginal probability distributions
+        # Marginals
         px = np.sum(joint_probs, axis=(1, 2))
         py = np.sum(joint_probs, axis=(0, 2))
         pz = np.sum(joint_probs, axis=(0, 1))
 
-        # Compute mutual information
+        # Mutual information
         mutual_info = 0.0
-        for i, x in enumerate(unique_X):
-            for j, y in enumerate(unique_Y):
-                for k, z in enumerate(unique_Z):
+        for i, _ in enumerate(unique_X):
+            for j, _ in enumerate(unique_Y):
+                for k, _ in enumerate(unique_Z):
                     if joint_probs[i, j, k] > 0.0:
                         mutual_info += joint_probs[i, j, k] * np.log2(
                             joint_probs[i, j, k] / (px[i] * py[j] * pz[k])
@@ -137,103 +159,36 @@ class UQMetrics:
         self.mutual_information = mutual_info
         return self.mutual_information
 
-    # Example usage:
-    # X, Y, and Z are arrays containing discrete random variables
-    # mutual_info_score = mutual_information(X, Y, Z)
-
+    # -------------------------------
+    # Geometric uncertainty metrics
+    # -------------------------------
     def calcu_prediction_surface(self, boxes):
-        cluster_df = pd.DataFrame(boxes, columns=["x1", "y1", "x2", "y2"])
+        """
+        Compute prediction surface by calculating convex hull areas
+        from bounding box corners.
+
+        Parameters:
+            boxes (array-like): List of bounding boxes [x1, y1, x2, y2].
+
+        Returns:
+            float: Prediction surface area (sum of convex hulls).
+        """
         self.prediction_surface = -1
-        self.hull = []
-        sf_tmp = 0
+        self.hull.clear()
+
+        cluster_df = pd.DataFrame(boxes, columns=["x1", "y1", "x2", "y2"])
+
         if cluster_df.shape[0] > 2:
+            sf_tmp = 0
             try:
-                center_data = cluster_df[["x1", "y1"]].values
-                hull = ConvexHull(center_data)
-                self.hull.append(hull)
-                sf_tmp += hull.area
+                for corner_set in [["x1", "y1"], ["x2", "y1"], ["x1", "y2"], ["x2", "y2"]]:
+                    center_data = cluster_df[corner_set].values
+                    hull = ConvexHull(center_data)
+                    self.hull.append(hull)
+                    sf_tmp += hull.area
 
-                center_data = cluster_df[["x2", "y1"]].values
-                # print(center_data)
-                hull = ConvexHull(center_data)
-                self.hull.append(hull)
-                sf_tmp += hull.area
-
-                center_data = cluster_df[["x1", "y2"]].values
-                hull = ConvexHull(center_data)
-                self.hull.append(hull)
-                sf_tmp += hull.area
-
-                center_data = cluster_df[["x2", "y2"]].values
-                hull = ConvexHull(center_data)
-                self.hull.append(hull)
-                sf_tmp += hull.area
-
-                # import matplotlib.pyplot as plt
-                # # plt.plot(center_data[:, 0], center_data[:, 1], 'o')
-                # img = plt.imread("/home/complexse/workspace/RoboSapiens/DTI-Laptop-refubishment/
-                # sticker_detector/dataset/sdimg/adv_run_1/image_stable_diffusion_67.jpg")
-                # fig, ax = plt.subplots()
-                # ax.imshow(img)
-                # for simplex in hull.simplices:
-                #     ax.plot(center_data[simplex, 0], center_data[simplex, 1], 'k-')
-                # plt.show()
-                # plt.savefig('./f.jpg')
                 self.prediction_surface = sf_tmp
             except Exception:
                 self.prediction_surface = -1
 
         return self.prediction_surface
-
-        # if len(boxes) <= 2:
-        #     return self.prediction_surface
-        #
-        # def create_corner_points():
-        #     corner_points = [[], [], [], []]
-        #     # print(corner_points)
-        #     for box in boxes:
-        #         corner_points[0].append([box[0], box[1]])
-        #         corner_points[1].append([box[2], box[3]])
-        #         corner_points[2].append([box[0], box[3]])
-        #         corner_points[3].append([box[2], box[1]])
-        #     return corner_points
-        #
-        # c_points = create_corner_points()
-        # # print(c_points)
-        #
-        # ps = 0
-        # for c_point in c_points:
-        #     # if len(c_point) > 2:
-        #     hull = ConvexHull(c_point)
-        #     self.prediction_surface += hull.area
-        # return self.prediction_surface
-
-
-if __name__ == "__main__":
-    uq_metrics = UQMetrics()
-    uq_metrics.calcu_entropy([1 / 3, 1 / 3, 1 / 3])
-    print(uq_metrics.shannon_entropy)
-
-    print(uq_metrics.cal_vr(events=[[1 / 3, 1 / 3, 1 / 3]]))
-    bs = [
-        [
-            1013.3162231445312,
-            1310.352294921875,
-            1118.556884765625,
-            1385.857177734375
-        ],
-        [
-            1014.5834350585938,
-            1308.5045166015625,
-            1121.2974853515625,
-            1388.34228515625
-        ],
-        [
-            1015.1859130859375,
-            1308.117431640625,
-            1119.5179443359375,
-            1386.121826171875
-        ]
-    ]
-
-    uq_metrics.calcu_prediction_surface(bs)
