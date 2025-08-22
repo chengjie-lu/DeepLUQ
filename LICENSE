@@ -12,11 +12,11 @@
  * THIS PROGRAM IS PROVIDED UNDER THE TERMS OF GPL VERSION 3 LICENSE OR
  * THIS INTO-CPS ASSOCIATION PUBLIC LICENSE (ICAPL) VERSION 1.0.
  * ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS PROGRAM CONSTITUTES
- * RECIPIENT'S ACCEPTANCE OF THE INTO-CPS ASSOCIATION PUBLIC LICENSE OR 
+ * RECIPIENT'S ACCEPTANCE OF THE INTO-CPS ASSOCIATION PUBLIC LICENSE OR
  * THE GPL VERSION 3, ACCORDING TO RECIPIENTS CHOICE.
  *
- * The INTO-CPS tool suite software and the INTO-CPS Association 
- * Public License (ICAPL) are obtained from the INTO-CPS Association, either 
+ * The INTO-CPS tool suite software and the INTO-CPS Association
+ * Public License (ICAPL) are obtained from the INTO-CPS Association, either
  * from the above address, from the URLs: http://www.into-cps.org or
  * in the INTO-CPS tool suite distribution.
  * GNU version 3 is obtained from: http://www.gnu.org/copyleft/gpl.html.
@@ -37,13 +37,13 @@ The ICAPL is a public license for the INTO-CPS tool suite with three modes/alter
 (GPL, ICA-Internal-EPL, ICA-External-EPL) for use and redistribution,
 in source and/or binary/object-code form:
 
-* GPL. Any party (member or non-member of the INTO-CPS Association) may use and 
+* GPL. Any party (member or non-member of the INTO-CPS Association) may use and
   redistribute INTO-CPS tool suite under GPL version 3.
 
-* Silver Level members of the INTO-CPS Association may also use and redistribute 
+* Silver Level members of the INTO-CPS Association may also use and redistribute
   the INTO-CPS tool suite under ICA-Internal-EPL conditions.
 
-* Gold Level members of the INTO-CPS Association may also use and redistribute 
+* Gold Level members of the INTO-CPS Association may also use and redistribute
   The INTO-CPS tool suite under ICA-Internal-EPL or ICA-External-EPL conditions.
 
 Definitions of the INTO-CPS Association Public license modes:
@@ -51,20 +51,20 @@ Definitions of the INTO-CPS Association Public license modes:
 * GPL = GPL version 3.
 
 * ICA-Internal-EPL = These INTO-CPA Association Public license conditions together with
- Internally restricted EPL, i.e., EPL version 1.0 with the Additional Condition 
+ Internally restricted EPL, i.e., EPL version 1.0 with the Additional Condition
  that use and redistribution by a member of the INTO-CPS Association is only allowed
  within the INTO-CPS Association member's own organization (i.e., its own legal entity),
- or for a member of the INTO-CPS Association paying a membership fee corresponding to 
+ or for a member of the INTO-CPS Association paying a membership fee corresponding to
  the size of the organization including all its affiliates, use and redistribution
  is allowed within/between its affiliates.
 
 * ICA-External-EPL = These INTO-CPA Association Public license conditions together with
- Externally restricted EPL, i.e., EPL version 1.0 with the Additional Condition 
+ Externally restricted EPL, i.e., EPL version 1.0 with the Additional Condition
  that use and redistribution by a member of the INTO-CPS Association, or by a Licensed
  Third Party Distributor having a redistribution agreement with that member,
  to parties external to the INTO-CPS Association member’s own organization (i.e., its own
  legal entity) is only allowed in binary/object-code form, except the case of
- redistribution to other members the INTO-CPS Association to which source is also 
+ redistribution to other members the INTO-CPS Association to which source is also
  allowed to be distributed.
 
 [This has the consequence that an external party who wishes to use
@@ -172,12 +172,12 @@ the INTO-CPS tool chain.
 including all Contributors.
 
 "Licensed Third Party Distributor" means a reseller/distributor having signed
-a redistribution/resale agreement in accordance with ICAPL and the INTO-CPS 
-Association Bylaws, with a Gold Level organizational member which is not an 
-Affiliate of the reseller/distributor, for distributing a product containing 
-part(s) of the INTO-CPS tool suite. The Licensed Third Party Distributor shall 
-only be allowed further redistribution to other resellers if the Gold Level 
-member is granting such a right to it in the redistribution/resale agreement 
+a redistribution/resale agreement in accordance with ICAPL and the INTO-CPS
+Association Bylaws, with a Gold Level organizational member which is not an
+Affiliate of the reseller/distributor, for distributing a product containing
+part(s) of the INTO-CPS tool suite. The Licensed Third Party Distributor shall
+only be allowed further redistribution to other resellers if the Gold Level
+member is granting such a right to it in the redistribution/resale agreement
 between the Gold Level member and the Licensed Third Party Distributor.
 
 "Affiliate" shall mean any legal entity, directly or indirectly, through one
@@ -211,12 +211,12 @@ SHALL HAVE ANY LIABILITY FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
 EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING WITHOUT LIMITATION
 LOST PROFITS), HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
 CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-ARISING IN ANY WAY OUT OF THE USE OR DISTRIBUTION OF THE INTO-CPS TOOL 
-SUITE OR THE EXERCISE OF ANY RIGHTS GRANTED HEREUNDER, EVEN IF ADVISED 
+ARISING IN ANY WAY OUT OF THE USE OR DISTRIBUTION OF THE INTO-CPS TOOL
+SUITE OR THE EXERCISE OF ANY RIGHTS GRANTED HEREUNDER, EVEN IF ADVISED
 OF THE POSSIBILITY OF SUCH DAMAGES.
 
 A Contributor licensing the INTO-CPS tool suite under ICA-Internal-EPL or
-ICA-External-EPL may choose to distribute (parts of) the INTO-CPS tool suite 
+ICA-External-EPL may choose to distribute (parts of) the INTO-CPS tool suite
 in object code form under its own license agreement, provided that:
 
 a) it complies with the terms and conditions of ICAPL; or for the case of
