@@ -81,8 +81,3 @@ Otherwise, please ensure that:
 
 
 Again, if you require help with any of the above. Please contact the developers.
-
-
-
-
-

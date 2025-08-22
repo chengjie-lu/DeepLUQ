@@ -88,7 +88,6 @@ def cluster(mc_locations):
 
     cluster_labels = np.unique(mc_locations[:, len(mc_locations[0]) - 1])
     total_cluster_surface = 0.0
-    avg_surface = -1.0
     for cluster_label in cluster_labels:
         sf_tmp = 0
         cluster_df = mc_locations_df.query("label == " + str(cluster_label))
@@ -112,7 +111,7 @@ def cluster(mc_locations):
             total_cluster_surface += hull.area
             sf_tmp += hull.area
         # print(sf_tmp)
-        avg_surface = total_cluster_surface / mc_locations.shape[0]
+        total_cluster_surface / mc_locations.shape[0]
 
     # print(total_cluster_surface, avg_surface)
 
