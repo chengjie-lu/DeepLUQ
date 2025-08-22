@@ -9,7 +9,7 @@
 import numpy as np
 import torch
 from torch.nn.functional import softmax
-import src.deepluq.utils as uncerUtils
+import deepluq.utils as uncerUtils
 from typing import List, Dict, Any
 
 

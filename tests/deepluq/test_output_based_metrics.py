@@ -7,7 +7,7 @@
 
 import numpy as np
 import pytest
-from src.deepluq.metrics_vla import OutputMetrics  # adjust import if needed
+from deepluq.metrics_vla import OutputMetrics  # adjust import if needed
 
 
 @pytest.fixture

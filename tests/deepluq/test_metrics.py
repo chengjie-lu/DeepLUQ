@@ -7,7 +7,7 @@
 
 import numpy as np
 import pytest
-from src.deepluq.metrics_dl import DLMetrics  # <-- adjust import if your class is in another file
+from deepluq.metrics_dl import DLMetrics  # <-- adjust import if your class is in another file
 
 
 @pytest.fixture
