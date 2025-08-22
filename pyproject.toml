@@ -46,6 +46,7 @@ classifiers = [
 
 dependencies = [
     "aiohttp",
+    "hdbscan",
     "ImageHash",
     "matplotlib",
     "numpy",
@@ -75,8 +76,11 @@ repository = "https://github.com/chengjie-lu/deepluq"
 
 [project.optional-dependencies]
 dev = [
+    "jupyter-book",
     "pre-commit",
-    "tox",
+    "pydot",
+    "sphinx-autoapi",
+    "tox"
 ]
 
 test = [

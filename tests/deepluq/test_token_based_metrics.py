@@ -7,7 +7,7 @@
 
 import torch
 import pytest
-from src.deepluq.metrics_vla import TokenMetrics   # adjust import if needed
+from deepluq.metrics_vla import TokenMetrics   # adjust import if needed
 
 
 @pytest.fixture
