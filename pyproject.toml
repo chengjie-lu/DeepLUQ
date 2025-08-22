@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 # https://packaging.python.org/en/latest/specifications/declaring-project-metadata/
 [project]
 name = "deepluq"
-version = "0.1"
+dynamic = ["version"]
 description = "Package to quantify uncertainty in deep learning models"
 license = { file="LICENSE" }
 readme = "README.md"
@@ -42,6 +42,7 @@ classifiers = [
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
 ]
 
 dependencies = [
@@ -92,6 +93,9 @@ test = [
 
 [project.scripts]
 deepluq = "deepluq.cli.main:run"
+
+[tool.setuptools.dynamic]
+version = {attr = "deepluq.version.__version__"}
 
 [tool.coverage.run]
 source = ["src"]
