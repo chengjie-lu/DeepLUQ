@@ -46,6 +46,7 @@ classifiers = [
 
 dependencies = [
     "aiohttp",
+    "hdbscan",
     "ImageHash",
     "matplotlib",
     "numpy",
