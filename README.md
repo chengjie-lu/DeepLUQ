@@ -10,9 +10,13 @@ Github repository: https://github.com/chengjie-lu/sticker-detection-uncertainty-
 
 Paper: Chengjie Lu, Jiahui Wu, Shaukat Ali, and Mikkel Labori Olsen. "Assessing the Uncertainty and Robustness of the Laptop Refurbishing Software". In 18th IEEE International Conference on Software Testing, Verification and Validation (ICST) 2025. [Preprint](https://arxiv.org/pdf/2409.03782)
 
-### Quantifying uncertainty in anomaly detection network
+### Evaluating Uncertainty and Quality of Visual Language Action-enabled Robots
 
-Ongoing work
+Github repository: https://github.com/pablovalle/VLA_UQ
+
+Paper: Valle, Pablo, Chengjie Lu, Shaukat Ali, and Aitor Arrieta. "Evaluating Uncertainty and Quality of Visual Language Action-enabled Robots." arXiv preprint arXiv:2507.17049 (2025). [Preprint](https://arxiv.org/pdf/2507.17049)
+
+
 
 ## References
 
