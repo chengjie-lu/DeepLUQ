@@ -41,17 +41,7 @@ class IoUTest(unittest.TestCase):
         ]
         metric = IntersectionOverUnion(class_metrics=True, respect_labels=True)
         r = metric(preds, targets)
-        print(r, metric.iou_matrix)
-
-        # metric = CompleteIntersectionOverUnion(class_metrics=True, respect_labels=True)
-        # r = metric(preds, targets)
-        # print(r, metric.iou_matrix)
-        #
-        # metric = DistanceIntersectionOverUnion(class_metrics=True, respect_labels=True)
-        # r = metric(preds, targets)
         # print(r, metric.iou_matrix)
 
         r = intersection_over_union(preds[0]['boxes'], targets[0]['boxes'], aggregate=False)
         print(r)
-
-        # {'iou': tensor(0.3187), 'iou/cl_1': tensor(0.2603), 'iou/cl_2': tensor(0.4499)}
