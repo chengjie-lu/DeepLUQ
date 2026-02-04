@@ -1,6 +1,7 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @Time    : 2025/1/6 下午3:58
-# @Author  : Chengjie
-# @File    : __init__.py.py
-# @Software: PyCharm
+from .version import __version__, __version_info__
+
+__all__ = [
+    "__version__",
+    "__version_info__"
+]
