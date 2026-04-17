@@ -40,15 +40,15 @@ import unittest
 # uq_metrics.calcu_prediction_surface(bs)
 
 
-class TestMetrics(unittest.TestCase):
-    # def __init__(self):
-    #     super().__init__()
-    #     self.uq_metrics = deepluq.metrics.UQMetrics()
-
-    def test_calcu_entropy(self):
-        self.uq_metrics = deepluq.metrics
-        self.uq_metrics.calcu_entropy([1 / 3, 1 / 3, 1 / 3])
-        print(self.uq_metrics.shannon_entropy)
+# class TestMetrics(unittest.TestCase):
+#     # def __init__(self):
+#     #     super().__init__()
+#     #     self.uq_metrics = deepluq.metrics.UQMetrics()
+#
+#     def test_calcu_entropy(self):
+#         self.uq_metrics = deepluq.metrics
+#         self.uq_metrics.calcu_entropy([1 / 3, 1 / 3, 1 / 3])
+#         print(self.uq_metrics.shannon_entropy)
 
 
 from src.deepluq.metrics_dl import DLMetrics  # <-- adjust import if your class is in another file
