@@ -66,6 +66,7 @@ dependencies = [
     "torchmetrics",
     "torchvision",
     "tqdm",
+    "ensemble-boxes",
 ]
 
 [project.urls]
