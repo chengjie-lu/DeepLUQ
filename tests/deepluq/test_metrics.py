@@ -7,7 +7,6 @@
 
 import numpy as np
 import pytest
-<<<<<<< HEAD
 from src import deepluq
 import unittest
 
@@ -50,8 +49,9 @@ class TestMetrics(unittest.TestCase):
         self.uq_metrics = deepluq.metrics
         self.uq_metrics.calcu_entropy([1 / 3, 1 / 3, 1 / 3])
         print(self.uq_metrics.shannon_entropy)
-=======
-from deepluq.metrics_dl import DLMetrics  # <-- adjust import if your class is in another file
+
+
+from src.deepluq.metrics_dl import DLMetrics  # <-- adjust import if your class is in another file
 
 
 @pytest.fixture
@@ -134,4 +134,3 @@ def test_calcu_prediction_surface_too_few_points(uq):
     boxes = [[0, 0, 1, 1]]  # not enough points for hull
     surface = uq.calcu_prediction_surface(boxes)
     assert surface == -1
->>>>>>> a3391e67d85cd156edc3aef6026bd560bb8b8c5b
