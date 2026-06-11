@@ -179,16 +179,34 @@ class DLMetrics:
         cluster_df = pd.DataFrame(boxes, columns=["x1", "y1", "x2", "y2"])
 
         if cluster_df.shape[0] > 2:
+            print(cluster_df.shape[0])
             sf_tmp = 0
             try:
                 for corner_set in [["x1", "y1"], ["x2", "y1"], ["x1", "y2"], ["x2", "y2"]]:
                     center_data = cluster_df[corner_set].values
-                    hull = ConvexHull(center_data)
+
+                    # Deduplicate points
+                    unique_points = np.unique(center_data, axis=0)
+
+                    # Need at least 3 non-collinear points for a 2D hull
+                    if len(unique_points) < 3:
+                        sf_tmp += 0
+                        continue
+
+                    # Check for collinearity: all points on the same line
+                    # Using the rank of the centered matrix — rank < 2 means collinear
+                    centered = unique_points - unique_points.mean(axis=0)
+                    if np.linalg.matrix_rank(centered) < 2:
+                        sf_tmp += 0
+                        continue
+
+                    hull = ConvexHull(unique_points)
                     self.hull.append(hull)
                     sf_tmp += hull.area
 
                 self.prediction_surface = sf_tmp
+
             except Exception:
-                self.prediction_surface = -1
+                self.prediction_surface = 0
 
         return self.prediction_surface
